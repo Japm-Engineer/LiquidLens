@@ -21,15 +21,15 @@ try:
     
 except InvalidInputsException:
     sys.exit("wrong number of inputs, test")
-
-except InvalidVoltageException:
-    sys.exit("Exception occurred: Invalid Voltage, it must be between 0 and 255")
-    
+       
 try:
     if (int(sys.argv[1]) >= 0) and (int(sys.argv[1]) <=255):
         voltage = int(sys.argv[1])
     else:
         raise InvalidVoltageException
+
+except InvalidVoltageException:
+    sys.exit("Exception occurred: Invalid Voltage, it must be between 0 and 255")
 
 lens = LiquidLensDriver()
 picam2 = Picamera2()
