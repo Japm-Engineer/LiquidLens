@@ -1,15 +1,24 @@
 from picamera2 import Picamera2
-import sys
 import time,os, glob
 from Lens.liquid_lens_driver import LiquidLensDriver
+import argparse
 
-class InvalidVoltageException(Exception):
-    "Raised when the input voltage is not between 0 and 255"
-    pass
+parser = argparse.ArgumentParser(
+                    prog='send_image',
+                    description='zmq liquid lens',
+                    epilog=' ')
+
+parser.add_argument('-v', '--voltage')      # option that takes a value
+
+args = parser.parse_args()
+
+# class InvalidVoltageException(Exception):
+#     "Raised when the input voltage is not between 0 and 255"
+#     pass
 
 try:
-    if (int(sys.argv[1]) >= 0) and (int(sys.argv[1]) <=255):
-        voltage = int(sys.argv[1])
+    if (int(args.voltage) >= 0) and (int(args.voltage) <=255):
+        voltage = int(args.voltage)
     else:
         raise InvalidVoltageException
 
