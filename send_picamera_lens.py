@@ -1,44 +1,38 @@
 import cv2
-import sys
 import socket
 import imutils
 import imagezmq
 from picamera2 import Picamera2
 from Lens.liquid_lens_driver import LiquidLensDriver
 import time
+import argparse
 
-class InvalidVoltageException(Exception):
-    "Raised when the input voltage is not between 0 and 255"
-    pass
+parser = argparse.ArgumentParser(description='Take video with liquid lens and zmq')
+parser.add_argument('-v', '--voltage',nargs='?',const=172, type = int,default=172)      # option that takes a value
+parser.add_argument('-i','--ip',nargs='?', const='192.168.31.121', type = str, default='192.168.31.121')
+parser.add_argument('-x','--xsize',nargs='?', const=3280, type = int, default=3280)
+parser.add_argument('-y','--ysize',nargs='?', const=3280, type = int, default=2464)
+parser.add_argument('-r','--resize',nargs='?', const=0.25, type = float, default=0.25)
+args = parser.parse_args()
 
-class InvalidInputsException(Exception):
-    "Raised when the input number is less of two (voltage  address)"
-    pass
-
-try:
-    if (len(sys.argv) <= 2):
-        raise InvalidInputsException
+# image parameters
+fullres = (args.xsize,args.ysize)
+outres = (int(args.resize*args.xsize),int(args.resize*args.ysize))
     
-except InvalidInputsException:
-    sys.exit("wrong number of inputs, test")
-       
 try:
-    if (int(sys.argv[1]) >= 0) and (int(sys.argv[1]) <=255):
-        voltage = int(sys.argv[1])
+    if (int(args.voltage) >= 0) and (int(args.voltage) <=255):
+        voltage = int(args.voltage)
     else:
         raise InvalidVoltageException
 
 except InvalidVoltageException:
     sys.exit("Exception occurred: Invalid Voltage, it must be between 0 and 255")
-adr = str(sys.argv[2])
+
+adr = str(args.ip)
 lens = LiquidLensDriver()
 picam2 = Picamera2()
 lens.d_write(voltage)
-# (640 ,480)
-# picam2.configure(picam2.create_preview_configuration(main={"format": 'RGB888', "size": (1920, 1080)}, lores={"size" : (320, 240)}, display="lores"))
-# picam2.configure(picam2.create_preview_configuration(raw={"size":(1640,1232)},main={"size": (640, 480)}))
-fullres = (3280,2464)
-outres = (820,616)
+
 picam2.configure(picam2.create_video_configuration(raw={'size':fullres},main={'format': 'RGB888','size': outres}))
 picam2.start()
 

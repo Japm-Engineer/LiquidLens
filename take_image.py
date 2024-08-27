@@ -3,18 +3,12 @@ import time,os, glob
 from Lens.liquid_lens_driver import LiquidLensDriver
 import argparse
 
-parser = argparse.ArgumentParser(
-                    prog='send_image',
-                    description='zmq liquid lens',
-                    epilog=' ')
-
-parser.add_argument('-v', '--voltage')      # option that takes a value
+parser = argparse.ArgumentParser(description='Take Images with liquid lens')
+parser.add_argument('-v', '--voltage',nargs='?',const=172, type = int,default=172)  
+parser.add_argument('-x','--xsize',nargs='?', const=3280, type = int, default=3280)
+parser.add_argument('-y','--ysize',nargs='?', const=3280, type = int, default=2464)
 
 args = parser.parse_args()
-
-# class InvalidVoltageException(Exception):
-#     "Raised when the input voltage is not between 0 and 255"
-#     pass
 
 try:
     if (int(args.voltage) >= 0) and (int(args.voltage) <=255):
@@ -36,8 +30,7 @@ length = len(files)
 lens = LiquidLensDriver()
 lens.d_write(voltage)
 picam2 = Picamera2()
-#camera_config = picam2.create_preview_configuration()
-camera_config = picam2.create_still_configuration(main={"size":(3280,2464)})
+camera_config = picam2.create_still_configuration(main={"size":(args.xsize,args.ysize)})
 picam2.configure(camera_config)
 
 picam2.start()
