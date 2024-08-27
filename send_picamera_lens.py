@@ -11,7 +11,7 @@ parser = argparse.ArgumentParser(description='Take video with liquid lens and zm
 parser.add_argument('-v', '--voltage',nargs='?',const=172, type = int,default=172)      # option that takes a value
 parser.add_argument('-i','--ip',nargs='?', const='192.168.31.121', type = str, default='192.168.31.121')
 parser.add_argument('-x','--xsize',nargs='?', const=3280, type = int, default=3280)
-parser.add_argument('-y','--ysize',nargs='?', const=3280, type = int, default=2464)
+parser.add_argument('-y','--ysize',nargs='?', const=2464, type = int, default=2464)
 parser.add_argument('-r','--resize',nargs='?', const=0.25, type = float, default=0.25)
 args = parser.parse_args()
 
