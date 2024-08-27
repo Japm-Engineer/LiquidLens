@@ -16,7 +16,7 @@ class InvalidInputsException(Exception):
     pass
 
 try:
-    if (len(sys.argv[1]) <= 2):
+    if (len(sys.argv) <= 2):
         raise InvalidInputsException
     
 except InvalidInputsException:
@@ -30,7 +30,7 @@ try:
 
 except InvalidVoltageException:
     sys.exit("Exception occurred: Invalid Voltage, it must be between 0 and 255")
-
+adr = str(sys.argv[2])
 lens = LiquidLensDriver()
 picam2 = Picamera2()
 lens.d_write(voltage)
@@ -43,7 +43,7 @@ picam2.configure(picam2.create_video_configuration(raw={'size':fullres},main={'f
 picam2.start()
 
 # socket zmq
-sender = imagezmq.ImageSender(connect_to='tcp://192.168.31.121:5555')
+sender = imagezmq.ImageSender(connect_to=f'tcp://{adr}:5555')
 rpi_name = socket.gethostname()
 print(rpi_name)
 print(type(rpi_name))
