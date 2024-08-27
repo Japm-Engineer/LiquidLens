@@ -1,6 +1,7 @@
 from picamera2 import Picamera2
 import time,os, glob
 from Lens.liquid_lens_driver import LiquidLensDriver
+import cv2
 import argparse
 
 parser = argparse.ArgumentParser(description='Take Images with liquid lens')
@@ -40,7 +41,7 @@ picam2.configure(camera_config)
 picam2.start()
 time.sleep(2)
 array = picam2.switch_mode_and_capture_array(camera_config)
-if args.resize <> 1:
+if (args.resize != 1):
     array = cv2.resize(array, outres)
     
 cv2.imwrite(f"{path}/Liquidlens_voltage{voltage:d}_{length+1:0>3.0f}.jpg", array)
