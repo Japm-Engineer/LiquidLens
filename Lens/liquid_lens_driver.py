@@ -1,9 +1,11 @@
-import smbus
+# import smbus
+from SMBus2 import SMBus
 addrs = 0b0010111
 # print(0b0010111)
 class LiquidLensDriver:
   def loadDriver(self):
-      self.driver = smbus.SMBus(1)
+    #   self.driver = smbus.SMBus(1)
+      self.driver = SMBus(1)
     #   self.driver.write_byte(0b0010111, 0x00)
       self.driver.write_byte(0b0010111, 0x00)
       print("Bus ready: ", self.driver)
