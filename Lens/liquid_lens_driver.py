@@ -7,7 +7,7 @@ class LiquidLensDriver:
     #   self.driver = smbus.SMBus(1)
       self.driver = SMBus(1)
     #   self.driver.write_byte(0b0100011, 0x00)
-      self.driver.write_byte(addrs, 0x00)
+      self.driver.write_byte(0b0010111, 0x00)
       print("Bus ready: ", self.driver)
 
   def __init__(self, initial=172):
@@ -20,13 +20,13 @@ class LiquidLensDriver:
       # global middlevoltage
 
       if close:
-          self.driver.write_byte(addrs, 0x00)  # Shutdown code
+          self.driver.write_byte(0b0010111, 0x00)  # Shutdown code
           return
 
       if voltage:
-          self.driver.write_byte(addrs, int(voltage) % 256)
+          self.driver.write_byte(0b0010111, int(voltage) % 256)
       else:
-          self.driver.write_byte(addrs, int(self.middlevoltage) % 256)
+          self.driver.write_byte(0b0010111, int(self.middlevoltage) % 256)
 
   def set_voltage(self, volt=False, shutdown=False):
       self.d_write(voltage=volt, close=shutdown)
