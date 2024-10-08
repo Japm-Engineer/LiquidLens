@@ -1,5 +1,5 @@
 # import smbus
-from SMBus2 import SMBus
+from smbus2 import SMBus
 addrs = 0b0010111
 # print(0b0010111)
 class LiquidLensDriver:
