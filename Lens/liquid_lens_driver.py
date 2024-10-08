@@ -1,6 +1,6 @@
 # import smbus
 from smbus2 import SMBus
-addrs = 0b0010110
+addrs = 0b0010111
 # print(0b0010111)
 class LiquidLensDriver:
   def loadDriver(self):
