@@ -29,7 +29,7 @@ if (pathday in os.listdir(pathground)) == False:
     
 if args.text == "":
     path = pathground + pathday +'/'
-voltage = round(np.arange(1,255,args.number))
+voltage = np.arange(1,255,int(args.number))
 print(voltage)
 # for v in voltage:
 #     file0 = path + f"cam0_g{args.gain}_exp{args.exposure}_voltage{v}_"+ str(1).zfill(3)+".png"
