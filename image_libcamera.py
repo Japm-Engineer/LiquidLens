@@ -1,11 +1,12 @@
 import subprocess, os, argparse, time
 from Lens.liquid_lens_driver import LiquidLensDriver
+import numpy as np
 
 parser = argparse.ArgumentParser(description='record image using libcamera-still')
 parser.add_argument('-v', '--voltage',nargs='?',const=172, type = int,default=172)  
 parser.add_argument('-g', '--gain',nargs='?',const=1, type = float,default=1)  
-parser.add_argument('-exp','--exposure',nargs='?', const=800, type = float, default=800)
-parser.add_argument('-n','--number',nargs='?', const=1, type = int, default=1)
+parser.add_argument('-exp','--exposure',nargs='?', const=100, type = float, default=100)
+parser.add_argument('-n','--number',nargs='?', const=3, type = int, default=3)
 parser.add_argument('-t','--text',nargs='?', const="", type = str, default="")
 parser.add_argument('-d','--delay',nargs='?', const=0, type = float, default=0)
 args = parser.parse_args()
@@ -28,10 +29,12 @@ if (pathday in os.listdir(pathground)) == False:
     
 if args.text == "":
     path = pathground + pathday +'/'
-    
-file0 = path + f"cam0_g{args.gain}_exp{args.exposure}_delay{args.delay}_"+ str(1).zfill(3)+".png"
-rpistr = f"libcamera-still -n -t 1 -e png --camera 0 -o {file0} --shutter {args.exposure*1000} --gain {args.gain} > /dev/null 2>&1"
-p = subprocess.Popen(rpistr, shell=True, stdout=subprocess.PIPE)
-p.wait()
+voltage = round(np.arange(1,255,args.number))
+print(voltage)
+# for v in voltage:
+#     file0 = path + f"cam0_g{args.gain}_exp{args.exposure}_voltage{v}_"+ str(1).zfill(3)+".png"
+#     rpistr = f"libcamera-still -n -t 1 -e png -o {file0} --shutter {args.exposure*1000} --gain {args.gain} > /dev/null 2>&1"
+#     p = subprocess.Popen(rpistr, shell=True, stdout=subprocess.PIPE)
+#     p.wait()
 
 
