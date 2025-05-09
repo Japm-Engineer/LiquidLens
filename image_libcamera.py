@@ -21,7 +21,7 @@ try:
 except InvalidVoltageException:
     sys.exit("Exception occurred: Invalid Voltage, it must be between 0 and 255")
 
-ground = 'home/pi/Documents/'
+ground = '/home/pi/Documents/'
 pathground = "liquidimg/"
 pathday = time.strftime("%Y%m%d") 
 Time = time.strftime("%H%M%S")
