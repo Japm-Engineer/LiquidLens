@@ -31,10 +31,10 @@ if args.text == "":
     path = pathground + pathday +'/'
 voltage = np.arange(1,255,round(255/int(args.number)))
 print(voltage)
-# for v in voltage:
-#     file0 = path + f"cam0_g{args.gain}_exp{args.exposure}_voltage{v}_"+ str(1).zfill(3)+".png"
-#     rpistr = f"libcamera-still -n -t 1 -e png -o {file0} --shutter {args.exposure*1000} --gain {args.gain} > /dev/null 2>&1"
-#     p = subprocess.Popen(rpistr, shell=True, stdout=subprocess.PIPE)
-#     p.wait()
+for v in voltage:
+    file0 = path + f"cam0_g{args.gain}_exp{args.exposure}_voltage{v:d}".png"
+    rpistr = f"libcamera-still -n -t 1 -e png -o {file0} --shutter {args.exposure*1000} --gain {args.gain} > /dev/null 2>&1"
+    p = subprocess.Popen(rpistr, shell=True, stdout=subprocess.PIPE)
+    p.wait()
 
 
