@@ -1,0 +1,27 @@
+import subprocess, os, argparse, time
+from Lens.liquid_lens_driver import LiquidLensDriver
+
+parser = argparse.ArgumentParser(description='record image using libcamera-still')
+parser.add_argument('-v', '--voltage',nargs='?',const=172, type = int,default=172)  
+parser.add_argument('-g', '--gain',nargs='?',const=1, type = float,default=1)  
+parser.add_argument('-exp','--exposure',nargs='?', const=800, type = float, default=800)
+parser.add_argument('-n','--number',nargs='?', const=1, type = int, default=1)
+parser.add_argument('-t','--text',nargs='?', const="", type = str, default="")
+parser.add_argument('-d','--delay',nargs='?', const=0, type = float, default=0)
+args = parser.parse_args()
+
+lens = LiquidLensDriver()
+try:
+    if (int(args.voltage) >= 0) and (int(args.voltage) <=255):
+        voltage = int(args.voltage)
+    else:
+        raise InvalidVoltageException
+except InvalidVoltageException:
+    sys.exit("Exception occurred: Invalid Voltage, it must be between 0 and 255")
+
+
+pathground = "img/"
+pathday = time.strftime("%Y%m%d") 
+
+if (pathday in os.listdir(pathground)) == False:
+    os.mkdir(time.strftime(pathground + pathday))
