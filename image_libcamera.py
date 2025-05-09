@@ -39,7 +39,7 @@ voltage = np.arange(1,255,round(255/int(args.number)))
 
 for v in voltage:
     lens.d_write(int(v))
-    file0 = path + Time + f"_cam0_g{args.gain}_exp{args.exposure}_voltage{v:d}.png"
+    file0 = path + Time + f"_cam0_g{args.gain}_exp{args.exposure}_voltage"+str(v).zfill(3)+".png"
     rpistr = f"libcamera-still -n -t 1 -e png -o {file0} --shutter {args.exposure*1000} --gain {args.gain} > /dev/null 2>&1"
     p = subprocess.Popen(rpistr, shell=True, stdout=subprocess.PIPE)
     p.wait()
