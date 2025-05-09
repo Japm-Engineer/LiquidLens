@@ -42,5 +42,3 @@ for v in voltage:
     rpistr = f"libcamera-still -n -t 1 -e png -o {file0} --shutter {args.exposure*1000} --gain {args.gain} > /dev/null 2>&1"
     p = subprocess.Popen(rpistr, shell=True, stdout=subprocess.PIPE)
     p.wait()
-
-
