@@ -29,4 +29,9 @@ if (pathday in os.listdir(pathground)) == False:
 if args.text == "":
     path = pathground + pathday +'/'
     
-print(path)
+file0 = path + f"cam0_g{args.gain}_exp{args.exposure}_delay{args.delay}_"+ str(1).zfill(3)+".png"
+rpistr = f"libcamera-still -n -t 1 -e png --camera 0 -o {file0} --shutter {args.exposure*1000} --gain {args.gain} > /dev/null 2>&1"
+p = subprocess.Popen(rpistr, shell=True, stdout=subprocess.PIPE)
+p.wait()
+
+
