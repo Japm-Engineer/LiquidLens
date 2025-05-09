@@ -22,12 +22,12 @@ except InvalidVoltageException:
     sys.exit("Exception occurred: Invalid Voltage, it must be between 0 and 255")
 
 ground = 'home/pi/Documents/'
-pathground = "liquidlens/"
+pathground = "liquidimg/"
 pathday = time.strftime("%Y%m%d") 
 Time = time.strftime("%H%M%S")
 
-if ('liquidlens' in os.listdir(ground)) == False:
-    os.mkdir(pathground)
+if ('liquidimg' in os.listdir(ground)) == False:
+    os.mkdir(ground + pathground)
 
 pathground = ground + pathground
 if (pathday in os.listdir(pathground)) == False:
