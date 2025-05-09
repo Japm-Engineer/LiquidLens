@@ -25,3 +25,8 @@ pathday = time.strftime("%Y%m%d")
 
 if (pathday in os.listdir(pathground)) == False:
     os.mkdir(time.strftime(pathground + pathday))
+    
+if args.text == "":
+    path = pathground + pathday +'/'
+    
+print(path)
